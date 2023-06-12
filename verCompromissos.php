@@ -66,7 +66,7 @@ if (isset($_POST['search'])) {
             }
         
         } else {
-            echo "<script> 
+            echo "<script>
                 alert('Nenhum compromisso encontrado!');
                 window.location.href = 'calendario.php';
             </script>";
