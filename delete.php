@@ -24,7 +24,7 @@ if (isset($_GET['delete_id'])) {
     }
 }
 
-// Consulta para recuperar os compromissos
+
 $sql = "SELECT id, descricao, data FROM compromisso";
 $result = mysqli_query($conn, $sql);
 

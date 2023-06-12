@@ -1,6 +1,5 @@
 
 <?php
-// Conecte-se ao banco de dados
 $servername ="db4free.net";
 $username = "banco_sophia";
 $password = "123456789";
@@ -8,15 +7,23 @@ $dbname = "db_eventos";
 
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 
-// Verifique se a conexão foi estabelecida com sucesso
 if (!$conn) {
     die("Falha na conexão com o banco de dados: " . mysqli_connect_error());
 }
 
-// Consulta para recuperar os compromissos
+
 $sql = "SELECT id, data, descricao FROM compromisso";
 $result = mysqli_query($conn, $sql);
 
+if (isset($_POST['search'])) {
+    $searchTerm = mysqli_real_escape_string($conn, $_POST['search']);
+
+    
+    $sql = "SELECT id, data, descricao FROM compromisso WHERE descricao LIKE '%$searchTerm%'";
+    $result = mysqli_query($conn, $sql);
+
+  
+}
 ?>
 
 <!DOCTYPE html>
@@ -28,6 +35,14 @@ $result = mysqli_query($conn, $sql);
     <h1>Compromissos</h1>
     <div class="body" style="background-image: url('images/background.jpg');">
 
+          <form method="POST" action="">
+        <input type="text" name="search" placeholder="Pesquisar compromissos">
+        <button type="submit">Pesquisar</button>
+    </form>
+
+    <table>
+        
+        
     <table>
         <tr>
             <th>Data</th>
@@ -36,7 +51,6 @@ $result = mysqli_query($conn, $sql);
             <th>Descrição</th>
         </tr>
         <?php
-        // Exiba os compromissos na tabela
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<tr>";
@@ -50,9 +64,15 @@ $result = mysqli_query($conn, $sql);
                 echo "<td><a href='delete.php?delete_id=" . $row["id"] . "'>Excluir</a></td>";
                 echo "</tr>";
             }
+        
         } else {
-            echo "<tr><td colspan='4'>Nenhum compromisso encontrado.</td></tr>";
+            echo "<script> 
+                alert('Nenhum compromisso encontrado!');
+                window.location.href = 'calendario.php';
+            </script>";
         }
+        
+        
         ?>
     </table>
 

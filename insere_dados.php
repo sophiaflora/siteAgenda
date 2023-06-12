@@ -13,7 +13,7 @@ if (!$conexao) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
    
     if (isset($_POST['data']) && isset($_POST['descricao'])) {
-        // Obtém os valores do formulário
+       
         $data = $_POST['data'];
         $descricao = $_POST['descricao'];
 
