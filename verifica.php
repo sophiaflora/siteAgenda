@@ -30,4 +30,4 @@ session_start();
                 alert('Login ou senha incorreto');
                 window.location.href = 'index.php';
             </script>";
-      }
+}
